@@ -155,15 +155,3 @@ predictions = stacking_clf.predict(test_coordinates)
 print(f"Step 7: Predictions on provided coordinates: {predictions}")
 
 
-data = {
-    "Model": ["RandomForest", "SVM", "KNN", "RandomizedSearch_RF", "Stacked_Model"],
-    "Accuracy": [performance_metrics['RandomForest']['Accuracy'], performance_metrics['SVM']['Accuracy'], performance_metrics['KNN']['Accuracy'], performance_metrics['RandomizedSearch_RandomForest']['Accuracy'], performance_metrics['Stacked_Model']['Accuracy']],
-    "Precision": [performance_metrics['RandomForest']['Precision'], performance_metrics['SVM']['Precision'], performance_metrics['KNN']['Precision'], performance_metrics['RandomizedSearch_RandomForest']['Precision'], performance_metrics['Stacked_Model']['Precision']],
-    "F1 Score": [performance_metrics['RandomForest']['F1 Score'], performance_metrics['SVM']['F1 Score'], performance_metrics['KNN']['F1 Score'], performance_metrics['RandomizedSearch_RandomForest']['F1 Score'], performance_metrics['Stacked_Model']['F1 Score']]
-}
-
-# Create a DataFrame for easier visualization
-results_df = pd.DataFrame(data)
-
-# Display the table
-import ace_tools as tools; tools.display_dataframe_to_user(name="Model Performance Metrics", dataframe=results_df)
