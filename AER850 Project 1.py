@@ -19,32 +19,32 @@ X = data[['X', 'Y', 'Z']]
 y = data['Step']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Step 2: Data Visualization on Test Data
-# Summary statistics for test data
-summary_stats_test = X_test.describe()
-print("Step 2: Summary Statistics for Test Data:")
-print(summary_stats_test)
+# Step 2: Data Visualization on Training Data
+# Summary statistics for training data
+summary_stats_train = X_train.describe()
+print("Step 2: Summary Statistics for Training Data:")
+print(summary_stats_train)
 
-# Plotting histograms with KDE (curve of best fit) based on the test data
+# Plotting histograms with KDE (curve of best fit) based on the training data
 plt.figure(figsize=(8, 6))
-sns.histplot(X_test['X'], bins=20, color='blue', kde=True)  # kde=True adds the curve of best fit
-plt.title('Distribution of X in Test Data with KDE')
+sns.histplot(X_train['X'], bins=20, color='blue', kde=True)  # kde=True adds the curve of best fit
+plt.title('Distribution of X in Training Data with KDE')
 plt.xlabel('X-coordinate')
 plt.ylabel('Frequency')
 plt.tight_layout()
 plt.show()
 
 plt.figure(figsize=(8, 6))
-sns.histplot(X_test['Y'], bins=20, color='green', kde=True)
-plt.title('Distribution of Y in Test Data with KDE')
+sns.histplot(X_train['Y'], bins=20, color='green', kde=True)
+plt.title('Distribution of Y in Training Data with KDE')
 plt.xlabel('Y-coordinate')
 plt.ylabel('Frequency')
 plt.tight_layout()
 plt.show()
 
 plt.figure(figsize=(8, 6))
-sns.histplot(X_test['Z'], bins=20, color='red', kde=True)
-plt.title('Distribution of Z in Test Data with KDE')
+sns.histplot(X_train['Z'], bins=20, color='red', kde=True)
+plt.title('Distribution of Z in Training Data with KDE')
 plt.xlabel('Z-coordinate')
 plt.ylabel('Frequency')
 plt.tight_layout()
@@ -155,4 +155,15 @@ predictions = stacking_clf.predict(test_coordinates)
 print(f"Step 7: Predictions on provided coordinates: {predictions}")
 
 
+data = {
+    "Model": ["RandomForest", "SVM", "KNN", "RandomizedSearch_RF", "Stacked_Model"],
+    "Accuracy": [performance_metrics['RandomForest']['Accuracy'], performance_metrics['SVM']['Accuracy'], performance_metrics['KNN']['Accuracy'], performance_metrics['RandomizedSearch_RandomForest']['Accuracy'], performance_metrics['Stacked_Model']['Accuracy']],
+    "Precision": [performance_metrics['RandomForest']['Precision'], performance_metrics['SVM']['Precision'], performance_metrics['KNN']['Precision'], performance_metrics['RandomizedSearch_RandomForest']['Precision'], performance_metrics['Stacked_Model']['Precision']],
+    "F1 Score": [performance_metrics['RandomForest']['F1 Score'], performance_metrics['SVM']['F1 Score'], performance_metrics['KNN']['F1 Score'], performance_metrics['RandomizedSearch_RandomForest']['F1 Score'], performance_metrics['Stacked_Model']['F1 Score']]
+}
 
+# Create a DataFrame for easier visualization
+results_df = pd.DataFrame(data)
+
+# Display the table
+import ace_tools as tools; tools.display_dataframe_to_user(name="Model Performance Metrics", dataframe=results_df)
